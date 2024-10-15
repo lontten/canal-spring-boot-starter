@@ -17,7 +17,7 @@
 <dependency>
     <groupId>io.github.lontten</groupId>
     <artifactId>canal-spring-boot-starter</artifactId>
-    <version>1.1.2.RELEASE</version>
+    <version>2.117.0.RELEASE</version>
 </dependency>
 ```
 
