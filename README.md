@@ -26,20 +26,20 @@
 <dependency>
     <groupId>io.github.lontten</groupId>
     <artifactId>canal-spring-boot-starter</artifactId>
-    <version>2.117.0.RELEASE</version>
+    <version>2.117.1.RELEASE</version>
 </dependency>
 ```
 
 ##### 2、Spring Boot 项目添加 Gradle (Kotlin) 依赖
 
 ``` kotlin
-implementation("io.github.lontten:canal-spring-boot-starter:2.117.0.RELEASE")
+implementation("io.github.lontten:canal-spring-boot-starter:2.117.1.RELEASE")
 ```
 
 ##### 3、Spring Boot 项目添加 Gradle 依赖
 
 ``` kotlin
-implementation 'io.github.lontten:canal-spring-boot-starter:2.117.0.RELEASE'
+implementation 'io.github.lontten:canal-spring-boot-starter:2.117.1.RELEASE'
 ```
 
 ##### 2、使用示例
@@ -94,11 +94,12 @@ public class DemoCanalEventHandler implements CanalEventHandler {
 
     @Override
     public void insert(Long id, List<CanalEntry.Column> list) {
-
+        log.info("新增数据，id:{}", id);
     }
 
     @Override
     public void update(Long id, List<CanalEntry.Column> oldList, List<CanalEntry.Column> newList) {
+        log.info("更新数据，id:{}", id);
         CanalEntry.Column uidColumn = CanalUtil.getField(oldList, "uid");
         log.info("更新时，是否更新了 uid:{}", uidColumn.getUpdated());
         if (uidColumn.getUpdated()) {
@@ -110,6 +111,7 @@ public class DemoCanalEventHandler implements CanalEventHandler {
 
     @Override
     public void delete(Long id, List<CanalEntry.Column> list) {
+        log.info("删除数据，id:{}", id);
     }
 }
 
