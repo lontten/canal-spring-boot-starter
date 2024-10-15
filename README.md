@@ -26,20 +26,20 @@
 <dependency>
     <groupId>io.github.lontten</groupId>
     <artifactId>canal-spring-boot-starter</artifactId>
-    <version>2.117.2.RELEASE</version>
+    <version>2.117.3.RELEASE</version>
 </dependency>
 ```
 
 ##### 2、Spring Boot 项目添加 Gradle (Kotlin) 依赖
 
 ``` kotlin
-implementation("io.github.lontten:canal-spring-boot-starter:2.117.2.RELEASE")
+implementation("io.github.lontten:canal-spring-boot-starter:2.117.3.RELEASE")
 ```
 
 ##### 3、Spring Boot 项目添加 Gradle 依赖
 
 ``` kotlin
-implementation 'io.github.lontten:canal-spring-boot-starter:2.117.2.RELEASE'
+implementation 'io.github.lontten:canal-spring-boot-starter:2.117.3.RELEASE'
 ```
 
 ##### 2、使用示例
