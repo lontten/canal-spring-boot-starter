@@ -49,15 +49,23 @@ implementation 'io.github.lontten:canal-spring-boot-starter:2.117.0.RELEASE'
 在`application.yml`文件中增加如下配置
 
 ```yaml
-#########################################################################################################################################################
-###Canal (LonttenCanalProperties) 基本配置：
-#########################################################################################################################################################
 lontten:
   canal:
-    dbName: demo
-    ip: 127.0.0.1
-    port: 11111
-    retryInterval: 60
+    destination: example   # 订阅的 canal 订阅实例
+    dbName: demo        # 数据库名字
+
+    retryInterval: 60   # 重试间隔，单位秒，默认60秒
+    maxRetryTimes: 10    # 最大重试次数,默认-1，无限制
+    batchSize: 1000      # canal client 每次拉取事件数量大小，默认 1000
+
+    username: canal       # canal server 账号
+    password: canal       # canal server 密码
+
+    ip: 127.0.0.1       # 单例模式 canal server ip,默认 127.0.0.1
+    port: 11111         # 单例模式 canal server 端口,默认 11111
+
+    zkServers: 127.0.0.1:2181   # zk集群模式：zookeeper 地址
+
 
 ```
 
