@@ -1,0 +1,24 @@
+[versions]
+junit-jupiter = "5.10.0"
+canal = "1.1.7"
+springboot = "2.7.18"
+
+[libraries]
+canal-client = { module = "com.alibaba.otter:canal.client", version.ref = "canal" }
+canal-protocol = { module = "com.alibaba.otter:canal.protocol", version.ref = "canal" }
+
+springboot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springboot" }
+springboot-log4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2", version.ref = "springboot" }
+
+
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+
+[bundles]
+canal = [
+    "canal-client",
+    "canal-protocol"
+]
+springboot = [
+    "springboot-web",
+    "springboot-log4j2"
+]

@@ -1,0 +1,84 @@
+{
+  "hints": [
+  ],
+  "groups": [
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal",
+      "type": "com.lontten.canal.properties.LonttenCanalProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.destination",
+      "type": "java.lang.String",
+      "description": "canal serve destination",
+      "defaultValue": "example"
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.username",
+      "type": "java.lang.String",
+      "description": "canal serve 账号",
+      "defaultValue": ""
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.password",
+      "type": "java.lang.String",
+      "description": "canal serve 密码",
+      "defaultValue": ""
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.dbName",
+      "type": "java.lang.String",
+      "description": "dbName",
+      "defaultValue": ""
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.retryInterval",
+      "type": "java.lang.Integer",
+      "description": "重试间隔，单位秒，默认60秒",
+      "defaultValue": "60"
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.maxRetryTimes",
+      "type": "java.lang.Integer",
+      "description": "最大重试次数,默认-1，无限制",
+      "defaultValue": "-1"
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.batchSize",
+      "type": "java.lang.Integer",
+      "description": "批量大小，默认 1000",
+      "defaultValue": "1000"
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.ip",
+      "type": "java.lang.String",
+      "description": "canal serve ip",
+      "defaultValue": "127.0.0.1"
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.port",
+      "type": "java.lang.Integer",
+      "description": "canal serve port",
+      "defaultValue": "11111"
+    },
+    {
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "name": "lontten.canal.zkServers",
+      "type": "java.lang.String",
+      "description": "zookeeper 地址",
+      "defaultValue": ""
+    }
+  ]
+}
+
