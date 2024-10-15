@@ -79,6 +79,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.lontten.canal.service.CanalEventHandler;
 import com.lontten.canal.util.CanalUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
