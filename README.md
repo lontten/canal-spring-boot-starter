@@ -1,5 +1,3 @@
-
-
 # canal-spring-boot-starter
 
 <a href="https://gitmoji.dev">
@@ -15,7 +13,7 @@
 
 
 > 支持 Spring Boot 2.x
-> 
+>
 > canal-client 版本 1.1.7
 
 #### 使用说明
@@ -60,12 +58,20 @@ lontten:
 
     username: canal       # canal server 账号
     password: canal       # canal server 密码
+    
+    # 1. 单例模式
+    ip: 127.0.0.1       # canal server ip,默认 127.0.0.1
+    port: 11111         # canal server 端口,默认 11111
 
-    ip: 127.0.0.1       # 单例模式 canal server ip,默认 127.0.0.1
-    port: 11111         # 单例模式 canal server 端口,默认 11111
+    # 2. zookeeper集群模式
+    zkServers: 127.0.0.1:2181   # zookeeper 地址
 
-    zkServers: 127.0.0.1:2181   # zk集群模式：zookeeper 地址
-
+    # 3. 集群模式
+    clusters:                   # canal server 列表
+      - ip: 127.0.0.1
+        port: 11111
+      - ip: 127.0.0.1
+        port: 11112
 
 ```
 

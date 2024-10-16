@@ -19,6 +19,10 @@ tasks.withType<JavaCompile> {
 tasks.withType<Javadoc> {
     options.encoding = "UTF-8"
 }
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+}
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())

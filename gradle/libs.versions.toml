@@ -9,6 +9,7 @@ canal-protocol = { module = "com.alibaba.otter:canal.protocol", version.ref = "c
 
 springboot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springboot" }
 springboot-log4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2", version.ref = "springboot" }
+springboot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "springboot" }
 
 
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
