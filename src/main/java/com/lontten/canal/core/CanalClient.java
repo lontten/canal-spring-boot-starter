@@ -26,7 +26,8 @@ package com.lontten.canal.core;
 
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.lontten.canal.properties.LonttenCanalProperties;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -34,9 +35,9 @@ import javax.annotation.Resource;
 import java.net.InetSocketAddress;
 
 
-@Slf4j
 @Component
 public class CanalClient extends AbstractCanalClient {
+    private static final Logger logger = LoggerFactory.getLogger(CanalClient.class);
     @Resource
     private LonttenCanalProperties properties;
 
@@ -79,34 +80,34 @@ public class CanalClient extends AbstractCanalClient {
         config();
         switch (canalServeType) {
             case 1:
-                log.info("单机模式");
+                logger.info("单机模式");
                 initSimpleCanalClient();
                 break;
             case 2:
-                log.info("集群模式");
+                logger.info("集群模式");
                 initClusterCanalClient();
                 break;
             case 3:
-                log.info("zookeeper 集群模式");
+                logger.info("zookeeper 集群模式");
                 initClusterZkCanalClient();
                 break;
             default:
-                log.error("canal client 配置错误，请检查配置文件");
+                logger.error("canal client 配置错误，请检查配置文件");
         }
 
         start();
-        log.info("canal client 初始化完成");
+        logger.info("canal client 初始化完成");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                log.info("## stop the canal client");
+                logger.info("## stop the canal client");
                 stop();
             } catch (Throwable e) {
-                log.warn("##something goes wrong when stopping canal:", e);
+                logger.warn("##something goes wrong when stopping canal:", e);
             } finally {
-                log.info("## canal client is down.");
+                logger.info("## canal client is down.");
             }
         }));
-        log.info("canal client 启动完成");
+        logger.info("canal client 启动完成");
     }
 
     public void initSimpleCanalClient() {

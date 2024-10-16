@@ -30,7 +30,6 @@ mavenPublishing {
     signAllPublications()
 
     coordinates(rootProject.group.toString(), rootProject.name, rootProject.version.toString())
-
     pom {
         name = rootProject.name
         description = "canal-spring-boot-starter"
@@ -59,29 +58,19 @@ mavenPublishing {
 }
 
 
-
 repositories {
     maven { url = uri("https://repo.maven.apache.org/maven2") }
-
     maven { url = uri("https://jitpack.io") }
     mavenCentral()
     maven { url = uri("https://repo.spring.io/milestone") }
     maven { url = uri("https://repo.spring.io/snapshot") }
 }
-val lombokVersion = "1.18.34"
 dependencies {
     // canal
     api(libs.bundles.canal)
 
     // springboot
     implementation(libs.bundles.springboot)
-
-
-    // lombok
-    compileOnly("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 
     // test
     testImplementation(libs.junit.jupiter)

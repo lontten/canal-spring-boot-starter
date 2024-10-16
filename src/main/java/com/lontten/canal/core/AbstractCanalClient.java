@@ -28,7 +28,6 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import com.lontten.canal.service.CanalEventHandler;
 import com.lontten.canal.util.TimeUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -39,7 +38,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Component
 public class AbstractCanalClient extends CanalClientContext {
     private static Map<String, CanalEventHandler> esSyncHandleMap;
@@ -82,14 +80,14 @@ public class AbstractCanalClient extends CanalClientContext {
         while (running) {
             int retry = retryCount.incrementAndGet();
             if (maxRetryTimes != -1 && retry > maxRetryTimes) {
-                log.error("canal client 重连失败，超过最大重连次数，退出");
+                logger.error("canal client 重连失败，超过最大重连次数，退出");
                 throw new RuntimeException("canal client 重连失败，超过最大重连次数，退出");
             }
             if (retry == 0) {
-                log.info("canal client 建立连接中.....");
+                logger.info("canal client 建立连接中.....");
             } else {
                 TimeUtil.sleep(1000 * retryInterval);
-                log.info("canal client 第{}次，重连中.....", retry);
+                logger.info("canal client 第{}次，重连中.....", retry);
             }
             // 创建链接
             try {
@@ -105,7 +103,7 @@ public class AbstractCanalClient extends CanalClientContext {
             try {
                 connector.connect();
                 connector.subscribe();
-                log.info("canal client 订阅中......");
+                logger.info("canal client 订阅中......");
                 // 连接成功，重置次数
                 retryCount.set(0);
                 while (running) {
@@ -121,12 +119,12 @@ public class AbstractCanalClient extends CanalClientContext {
                     }
                 }
             } catch (Throwable e) {
-                log.error("process error!", e);
+                logger.error("process error!", e);
                 TimeUtil.sleep(1000L);
 
                 connector.rollback(); // 处理失败, 回滚数据
             } finally {
-                log.info("canal client,运行异常，释放链接。");
+                logger.info("canal client,运行异常，释放链接。");
                 connector.disconnect();
             }
         }
@@ -170,7 +168,7 @@ public class AbstractCanalClient extends CanalClientContext {
                     handle.sync(eventType, id, rowData);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    log.error("sync error,tableName:{},eventType:{},id:{}", tableName, eventType, id, e);
+                    logger.error("sync error,tableName:{},eventType:{},id:{}", tableName, eventType, id, e);
                 }
             }
         }

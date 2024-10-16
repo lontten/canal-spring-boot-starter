@@ -25,14 +25,16 @@
 package com.lontten.canal.util;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import lombok.extern.slf4j.Slf4j;
+import com.lontten.canal.core.CanalClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.List;
 
-@Slf4j
 public class CanalUtil {
+    private static final Logger logger = LoggerFactory.getLogger(CanalUtil.class);
 
     @NonNull
     public static CanalEntry.Column getField(List<CanalEntry.Column> list, String fieldName) {
@@ -41,7 +43,7 @@ public class CanalUtil {
                 return column;
             }
         }
-        log.error("CanalUtil getFieldMust 无此 字段：{}", fieldName);
+        logger.error("CanalUtil getFieldMust 无此 字段：{}", fieldName);
         throw new RuntimeException("CanalUtil getFieldMust 无此 字段：" + fieldName);
     }
 

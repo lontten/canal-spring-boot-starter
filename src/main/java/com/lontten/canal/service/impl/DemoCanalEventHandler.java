@@ -27,12 +27,14 @@ package com.lontten.canal.service.impl;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.lontten.canal.service.CanalEventHandler;
 import com.lontten.canal.util.CanalUtil;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
-@Slf4j
 //@Service
 public class DemoCanalEventHandler implements CanalEventHandler {
+    private static final Logger logger = LoggerFactory.getLogger(DemoCanalEventHandler.class);
 
     @Override
     public String tableName() {
@@ -41,21 +43,23 @@ public class DemoCanalEventHandler implements CanalEventHandler {
 
     @Override
     public void insert(Long id, List<CanalEntry.Column> list) {
-
+        logger.info("新增了 id:{}", id);
     }
 
     @Override
     public void update(Long id, List<CanalEntry.Column> oldList, List<CanalEntry.Column> newList) {
+        logger.info("更新了 id:{}", id);
         CanalEntry.Column uidColumn = CanalUtil.getField(oldList, "uid");
-        log.info("更新时，是否更新了 uid:{}", uidColumn.getUpdated());
+        logger.info("更新时，是否更新了 uid:{}", uidColumn.getUpdated());
         if (uidColumn.getUpdated()) {
             if (uidColumn.getIsNull()) {
-                log.info("将uid 的值 更新为 null");
+                logger.info("将uid 的值 更新为 null");
             }
         }
     }
 
     @Override
     public void delete(Long id, List<CanalEntry.Column> list) {
+        logger.info("删除了 id:{}", id);
     }
 }

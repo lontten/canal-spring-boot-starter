@@ -26,25 +26,26 @@ package com.lontten.canal.core;
 
 
 import com.alibaba.otter.canal.client.CanalConnector;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Slf4j
 public class CanalClientContext {
-
+    protected final static Logger logger = LoggerFactory.getLogger(AbstractCanalClient.class);
     /**
      * canal服务端类型，1：单机，2：集群,3：集群-zookeeper
      */
     protected static volatile int canalServeType = 1;
 
     protected volatile boolean running = false;
-    protected Thread.UncaughtExceptionHandler handler = (t, e) -> log.error("parse events has an error", e);
+    protected Thread.UncaughtExceptionHandler handler = (t, e) -> logger.error("parse events has an error", e);
     protected Thread thread = null;
-    @Setter
     protected CanalConnector connector;
 
+    public void setConnector(CanalConnector connector) {
+        this.connector = connector;
+    }
 
     protected static int batchSize = 1000;
 

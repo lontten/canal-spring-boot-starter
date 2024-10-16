@@ -24,13 +24,11 @@
  * ------------------------------------------------------------*/
 package com.lontten.canal.properties;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
 
 
-@Data
 @ConfigurationProperties(
         prefix = LonttenCanalProperties.LonttenCanalPropertiesProfix,
         ignoreUnknownFields = false
@@ -95,7 +93,111 @@ public class LonttenCanalProperties {
      */
     private ArrayList<Cluster> clusters = new ArrayList<>();
 
-    @Data
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public Long getRetryInterval() {
+        return retryInterval;
+    }
+
+    public void setRetryInterval(Long retryInterval) {
+        this.retryInterval = retryInterval;
+    }
+
+    public Integer getMaxRetryTimes() {
+        return maxRetryTimes;
+    }
+
+    public void setMaxRetryTimes(Integer maxRetryTimes) {
+        this.maxRetryTimes = maxRetryTimes;
+    }
+
+    public Integer getBatchSize() {
+        return batchSize;
+    }
+
+    public void setBatchSize(Integer batchSize) {
+        this.batchSize = batchSize;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    public String getZkServers() {
+        return zkServers;
+    }
+
+    public void setZkServers(String zkServers) {
+        this.zkServers = zkServers;
+    }
+
+    public ArrayList<Cluster> getClusters() {
+        return clusters;
+    }
+
+    public void setClusters(ArrayList<Cluster> clusters) {
+        this.clusters = clusters;
+    }
+
+    public LonttenCanalProperties(String destination, String username, String password, String dbName, Long retryInterval, Integer maxRetryTimes, Integer batchSize, String ip, Integer port, String zkServers, ArrayList<Cluster> clusters) {
+        this.destination = destination;
+        this.username = username;
+        this.password = password;
+        this.dbName = dbName;
+        this.retryInterval = retryInterval;
+        this.maxRetryTimes = maxRetryTimes;
+        this.batchSize = batchSize;
+        this.ip = ip;
+        this.port = port;
+        this.zkServers = zkServers;
+        this.clusters = clusters;
+    }
+
+    public LonttenCanalProperties() {
+    }
+
     public static class Cluster {
         /**
          * canal server ip
@@ -105,6 +207,30 @@ public class LonttenCanalProperties {
          * canal server 端口
          */
         private Integer port;
+
+        public String getIp() {
+            return ip;
+        }
+
+        public void setIp(String ip) {
+            this.ip = ip;
+        }
+
+        public Integer getPort() {
+            return port;
+        }
+
+        public void setPort(Integer port) {
+            this.port = port;
+        }
+
+        public Cluster(String ip, Integer port) {
+            this.ip = ip;
+            this.port = port;
+        }
+
+        public Cluster() {
+        }
     }
 
 
