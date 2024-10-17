@@ -106,7 +106,7 @@ public class DemoCanalEventHandler implements CanalEventHandler {
     @Override
     public void update(Long id, List<CanalEntry.Column> oldList, List<CanalEntry.Column> newList) {
         log.info("更新数据，id:{}", id);
-        CanalEntry.Column uidColumn = CanalUtil.getField(oldList, "uid");
+        CanalEntry.Column uidColumn = CanalUtil.getField(newList, "uid");
         log.info("更新时，是否更新了 uid:{}", uidColumn.getUpdated());
         if (uidColumn.getUpdated()) {
             if (uidColumn.getIsNull()) {
