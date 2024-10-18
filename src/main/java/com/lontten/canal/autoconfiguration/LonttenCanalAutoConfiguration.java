@@ -32,6 +32,6 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({
         LonttenCanalProperties.class
 })
-public class AutoConfiguration {
+public class LonttenCanalAutoConfiguration {
 
 }
