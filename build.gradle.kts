@@ -74,7 +74,9 @@ dependencies {
     api(libs.bundles.canal)
 
     // springboot
-    implementation(libs.bundles.springboot)
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.18") {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+    }
 
     // test
     testImplementation(libs.junit.jupiter)
