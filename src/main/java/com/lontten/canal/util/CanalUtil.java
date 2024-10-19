@@ -25,7 +25,6 @@
 package com.lontten.canal.util;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.lontten.canal.core.CanalClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;

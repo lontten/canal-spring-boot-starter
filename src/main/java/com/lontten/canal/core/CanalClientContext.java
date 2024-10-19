@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CanalClientContext {
-    protected final static Logger logger = LoggerFactory.getLogger(AbstractCanalClient.class);
+    protected final static Logger logger = LoggerFactory.getLogger(CanalClientService.class);
     /**
      * canal服务端类型，1：单机，2：集群,3：集群-zookeeper
      */

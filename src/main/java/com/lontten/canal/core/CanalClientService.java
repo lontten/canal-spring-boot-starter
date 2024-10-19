@@ -26,31 +26,51 @@ package com.lontten.canal.core;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
+import com.lontten.canal.properties.LonttenCanalProperties;
 import com.lontten.canal.service.CanalEventHandler;
 import com.lontten.canal.util.TimeUtil;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
-@Component
-public class AbstractCanalClient extends CanalClientContext {
-    private static Map<String, CanalEventHandler> esSyncHandleMap;
-    @Resource
-    private List<CanalEventHandler> esSyncHandleList;
+public class CanalClientService extends CanalClientContext {
+    protected static Map<String, CanalEventHandler> esSyncHandleMap = new HashMap<>();
+
+    protected void config(LonttenCanalProperties properties) {
+        if (properties.getMaxRetryTimes() != null) {
+            CanalClientContext.maxRetryTimes = properties.getMaxRetryTimes();
+        }
+        if (properties.getRetryInterval() != null) {
+            CanalClientContext.retryInterval = properties.getRetryInterval();
+        }
+        if (properties.getBatchSize() != null) {
+            CanalClientContext.batchSize = properties.getBatchSize();
+        }
+
+        if (properties.getUsername() != null) {
+            CanalClientContext.username = properties.getUsername();
+        }
+        if (properties.getPassword() != null) {
+            CanalClientContext.password = properties.getPassword();
+        }
 
 
-    @PostConstruct
-    public void init() {
-        esSyncHandleMap = esSyncHandleList.stream()
-                .collect(Collectors.toMap(CanalEventHandler::tableName, Function.identity()));
+        if (properties.getDestination() != null) {
+            CanalClientContext.destination = properties.getDestination();
+        }
+        if (properties.getDbName() != null) {
+            CanalClientContext.dbName = properties.getDbName();
+        }
+
+
+        if (properties.getZkServers() != null) {
+            CanalClientContext.canalServeType = 3;
+        } else if (properties.getClusters() != null && !properties.getClusters().isEmpty()) {
+            CanalClientContext.canalServeType = 2;
+        }
     }
-
 
     protected void start() {
         Assert.notNull(connector, "无法根据配置建立链接。");

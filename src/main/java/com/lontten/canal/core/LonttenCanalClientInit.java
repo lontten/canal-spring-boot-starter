@@ -26,58 +26,36 @@ package com.lontten.canal.core;
 
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.lontten.canal.properties.LonttenCanalProperties;
+import com.lontten.canal.service.CanalEventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.net.InetSocketAddress;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Component
-public class CanalClient extends AbstractCanalClient {
-    private static final Logger logger = LoggerFactory.getLogger(CanalClient.class);
-    @Resource
-    private LonttenCanalProperties properties;
+public class LonttenCanalClientInit extends CanalClientService {
+    private static final Logger logger = LoggerFactory.getLogger(LonttenCanalClientInit.class);
+    private final LonttenCanalProperties properties;
+    private final List<CanalEventHandler> esSyncHandleList;
 
-    public void config() {
-        if (properties.getMaxRetryTimes() != null) {
-            CanalClientContext.maxRetryTimes = properties.getMaxRetryTimes();
-        }
-        if (properties.getRetryInterval() != null) {
-            CanalClientContext.retryInterval = properties.getRetryInterval();
-        }
-        if (properties.getBatchSize() != null) {
-            CanalClientContext.batchSize = properties.getBatchSize();
-        }
-
-        if (properties.getUsername() != null) {
-            CanalClientContext.username = properties.getUsername();
-        }
-        if (properties.getPassword() != null) {
-            CanalClientContext.password = properties.getPassword();
-        }
-
-
-        if (properties.getDestination() != null) {
-            CanalClientContext.destination = properties.getDestination();
-        }
-        if (properties.getDbName() != null) {
-            CanalClientContext.dbName = properties.getDbName();
-        }
-
-
-        if (properties.getZkServers() != null) {
-            CanalClientContext.canalServeType = 3;
-        } else if (properties.getClusters() != null && !properties.getClusters().isEmpty()) {
-            CanalClientContext.canalServeType = 2;
-        }
+    @Autowired
+    public LonttenCanalClientInit(List<CanalEventHandler> esSyncHandleList, LonttenCanalProperties properties) {
+        this.esSyncHandleList = esSyncHandleList;
+        this.properties = properties;
     }
 
     @PostConstruct
     public void init() {
-        config();
+        esSyncHandleMap = esSyncHandleList.stream()
+                .collect(Collectors.toMap(CanalEventHandler::tableName, Function.identity()));
+        config(properties);
         switch (canalServeType) {
             case 1:
                 logger.info("单机模式");
