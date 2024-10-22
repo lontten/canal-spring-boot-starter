@@ -137,7 +137,9 @@ public class CanalClientService extends CanalClientContext {
                         if (enableLog) {
                             logger.info("client get message batchId:{},size:{}", batchId, size);
                         }
-                        handleEntry(entries);
+                        for (CanalEntry.Entry entry : entries) {
+                            handleEntry(entry);
+                        }
                     }
                 }
             } catch (Throwable e) {
@@ -153,47 +155,50 @@ public class CanalClientService extends CanalClientContext {
     }
 
 
-    private void handleEntry(List<CanalEntry.Entry> entrys) {
-        for (CanalEntry.Entry entry : entrys) {
-            if (entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONBEGIN || entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONEND) {
-                continue;
-            }
+    /**
+     * 抛出异常后，上层会捕获，回滚数据
+     *
+     * @param entry
+     */
+    private void handleEntry(CanalEntry.Entry entry) {
+        if (entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONBEGIN || entry.getEntryType() == CanalEntry.EntryType.TRANSACTIONEND) {
+            return;
+        }
 
-            CanalEntry.RowChange rowChage = null;
-            try {
-                rowChage = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-            } catch (Exception e) {
-                throw new RuntimeException("ERROR ## parser of eromanga-event has an error , data:" + entry, e);
-            }
+        CanalEntry.RowChange rowChage = null;
+        try {
+            rowChage = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+        } catch (Exception e) {
+            throw new RuntimeException("ERROR ## parser of eromanga-event has an error , data:" + entry, e);
+        }
 
-            CanalEntry.EventType eventType = rowChage.getEventType();
-            String schemaName = entry.getHeader().getSchemaName();
-            if (!dbName.equals(schemaName)) {
-                continue;
-            }
-            String tableName = entry.getHeader().getTableName();
+        CanalEntry.EventType eventType = rowChage.getEventType();
+        String schemaName = entry.getHeader().getSchemaName();
+        if (!dbName.equals(schemaName)) {
+            return;
+        }
+        String tableName = entry.getHeader().getTableName();
 //            System.out.println(String.format("================ binlog[%s:%s] , name[%s,%s] , eventType : %s",
 //                    entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
 //                    dbName, tableName,
 //                    eventType));
-            for (CanalEntry.RowData rowData : rowChage.getRowDatasList()) {
-                Long id = getId(eventType, rowData);
-                if (id == null) {
-                    continue;
+        for (CanalEntry.RowData rowData : rowChage.getRowDatasList()) {
+            Long id = getId(eventType, rowData);
+            if (id == null) {
+                continue;
+            }
+            CanalEventHandler handle = esSyncHandleMap.get(tableName);
+            if (handle == null) {
+                continue;
+            }
+            try {
+                if (enableLog) {
+                    logger.info("sync tableName:{},eventType:{},id:{}", tableName, eventType, id);
                 }
-                CanalEventHandler handle = esSyncHandleMap.get(tableName);
-                if (handle == null) {
-                    continue;
-                }
-                try {
-                    if (enableLog) {
-                        logger.info("sync tableName:{},eventType:{},id:{}", tableName, eventType, id);
-                    }
-                    handle.sync(eventType, id, rowData);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    logger.error("sync error,tableName:{},eventType:{},id:{}", tableName, eventType, id, e);
-                }
+                handle.sync(eventType, id, rowData);
+            } catch (Exception e) {
+                logger.error("sync error,tableName:{},eventType:{},id:{}", tableName, eventType, id, e);
+                throw e;
             }
         }
     }
