@@ -47,6 +47,7 @@ public class CanalClientContext {
         this.connector = connector;
     }
 
+    protected static boolean enableLog = true;
     protected static int batchSize = 1000;
 
     // 重试间隔，单位秒，默认60秒

@@ -134,7 +134,9 @@ public class CanalClientService extends CanalClientContext {
                     if (batchId == -1 || size == 0) {
                         TimeUtil.sleep(1000L);
                     } else {
-//                        System.out.printf("message[batchId=%s,size=%s] \n", batchId, size);
+                        if (enableLog) {
+                            logger.info("client get message batchId:{},size:{}", batchId, size);
+                        }
                         handleEntry(entries);
                     }
                 }
@@ -184,7 +186,9 @@ public class CanalClientService extends CanalClientContext {
                     continue;
                 }
                 try {
-//                    log.info("sync tableName:{},eventType:{},id:{}", tableName, eventType, id);
+                    if (enableLog) {
+                        logger.info("sync tableName:{},eventType:{},id:{}", tableName, eventType, id);
+                    }
                     handle.sync(eventType, id, rowData);
                 } catch (Exception e) {
                     e.printStackTrace();

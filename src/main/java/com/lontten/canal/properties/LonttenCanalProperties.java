@@ -37,6 +37,11 @@ public class LonttenCanalProperties {
     public static final String LonttenCanalPropertiesProfix = "lontten.canal";
 
     /**
+     * 是否开启日志，默认开启
+     */
+    private Boolean enableLog;
+
+    /**
      * 目的地，（可以理解成 canal server的监听器的多个实例），canal server 可以配置多个，监听不同的mysql，实现一种对mysql 消息的分组功能
      * 例如：我们有 数据库 ln在线商城(ln_shop)，ln跨境电商(ln_shop2)，ln酒店(ln_hotel)，ln旅游社(ln_travel)
      * 可以配置
@@ -196,6 +201,14 @@ public class LonttenCanalProperties {
     }
 
     public LonttenCanalProperties() {
+    }
+
+    public Boolean getEnableLog() {
+        return enableLog;
+    }
+
+    public void setEnableLog(Boolean enableLog) {
+        this.enableLog = enableLog;
     }
 
     public static class Cluster {
