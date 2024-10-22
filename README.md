@@ -10,6 +10,11 @@
 #### 组件简介
 
 > 基于 [Canal ](https://github.com/alibaba/canal) 整合的 Starter
+> 
+> 默认情况下，当服务器的 canal server 宕机后，canal client 会断开链接;
+> 但是当 canal server 重启后，client 不会自动重连，还需要我们手动重启 canal client端，十分麻烦。
+> 
+> 所以我开发了 canal-spring-boot-starter ，可以在 canal server 重启后，自动重连。
 
 
 > 支持 Spring Boot 2.x
