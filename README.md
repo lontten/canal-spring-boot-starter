@@ -56,6 +56,8 @@ lontten:
     maxRetryTimes: 10    # 最大重试次数,默认-1，无限制
     batchSize: 1000      # canal client 每次拉取事件数量大小，默认 1000
 
+    enableLog: true       # 是否打印日志,默认 true
+    
     username: canal       # canal server 账号
     password: canal       # canal server 密码
     
