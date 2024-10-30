@@ -29,20 +29,20 @@
 <dependency>
     <groupId>io.github.lontten</groupId>
     <artifactId>canal-spring-boot-starter</artifactId>
-    <version>2.117.7.RELEASE</version>
+    <version>2.117.8.RELEASE</version>
 </dependency>
 ```
 
 ##### 2、Spring Boot 项目添加 Gradle (Kotlin) 依赖
 
 ``` kotlin
-implementation("io.github.lontten:canal-spring-boot-starter:2.117.7.RELEASE")
+implementation("io.github.lontten:canal-spring-boot-starter:2.117.8.RELEASE")
 ```
 
 ##### 3、Spring Boot 项目添加 Gradle 依赖
 
 ``` kotlin
-implementation 'io.github.lontten:canal-spring-boot-starter:2.117.7.RELEASE'
+implementation 'io.github.lontten:canal-spring-boot-starter:2.117.8.RELEASE'
 ```
 
 ##### 2、使用示例
@@ -55,11 +55,13 @@ implementation 'io.github.lontten:canal-spring-boot-starter:2.117.7.RELEASE'
 lontten:
   canal:
     destination: example   # 订阅的 canal 订阅实例
-    dbName: demo        # 数据库名字
+    dbName: demo          # 数据库名字
 
-    retryInterval: 60   # 重试间隔，单位秒，默认60秒
-    maxRetryTimes: 10    # 最大重试次数,默认-1，无限制
-    batchSize: 1000      # canal client 每次拉取事件数量大小，默认 1000
+    retryInterval: 60     # 重试间隔，单位秒，默认60秒
+    maxRetryTimes: 10     # 最大重试次数,默认-1，无限制
+    
+    batchSize: 1000       # 每次轮训，拉取数量大小，默认 1000
+    batchInterval: 1      # 每次轮训，拉取间隔，单位秒，默认 1秒
 
     enableLog: true       # 是否打印日志,默认 true
     
