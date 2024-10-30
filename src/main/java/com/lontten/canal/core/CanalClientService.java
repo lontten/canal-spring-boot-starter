@@ -48,6 +48,9 @@ public class CanalClientService extends CanalClientContext {
         if (properties.getBatchSize() != null) {
             CanalClientContext.batchSize = properties.getBatchSize();
         }
+        if (properties.getBatchInterval() != null) {
+            CanalClientContext.batchInterval = properties.getBatchInterval();
+        }
 
         if (properties.getUsername() != null) {
             CanalClientContext.username = properties.getUsername();
@@ -131,12 +134,12 @@ public class CanalClientService extends CanalClientContext {
                     long batchId = message.getId();
                     List<CanalEntry.Entry> entries = message.getEntries();
                     int size = entries.size();
+                    if (enableLog) {
+                        logger.info("client get message batchId:{},size:{}", batchId, size);
+                    }
                     if (batchId == -1 || size == 0) {
-                        TimeUtil.sleep(1000L);
+                        TimeUtil.sleep(batchInterval * 1000);
                     } else {
-                        if (enableLog) {
-                            logger.info("client get message batchId:{},size:{}", batchId, size);
-                        }
                         for (CanalEntry.Entry entry : entries) {
                             handleEntry(entry);
                         }

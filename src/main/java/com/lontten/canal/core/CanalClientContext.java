@@ -48,7 +48,17 @@ public class CanalClientContext {
     }
 
     protected static boolean enableLog = true;
-    protected static int batchSize = 1000;
+
+    /**
+     * 轮训间隔，默认1秒
+     */
+    protected static Integer batchInterval = 1;
+
+    /**
+     * 轮训批量大小，默认 1000
+     */
+    protected static Integer batchSize = 1000;
+
 
     // 重试间隔，单位秒，默认60秒
     protected static long retryInterval = 60;

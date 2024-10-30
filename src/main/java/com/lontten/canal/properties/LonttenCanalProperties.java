@@ -72,8 +72,15 @@ public class LonttenCanalProperties {
      * 最大重试次数,默认-1，无限制
      */
     private Integer maxRetryTimes;
+
+
     /**
-     * 批量大小，默认 1000
+     * 轮训间隔，默认1秒
+     */
+    private Integer batchInterval;
+
+    /**
+     * 轮训批量大小，默认 1000
      */
     private Integer batchSize;
 
@@ -152,6 +159,14 @@ public class LonttenCanalProperties {
 
     public void setBatchSize(Integer batchSize) {
         this.batchSize = batchSize;
+    }
+
+    public Integer getBatchInterval() {
+        return batchInterval;
+    }
+
+    public void setBatchInterval(Integer batchInterval) {
+        this.batchInterval = batchInterval;
     }
 
     public String getIp() {
