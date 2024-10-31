@@ -76,6 +76,13 @@
       "defaultValue": "1000"
     },
     {
+      "name": "lontten.canal.batchInterval",
+      "type": "java.lang.Integer",
+      "description": "轮训间隔，默认1秒",
+      "sourceType": "com.lontten.canal.properties.LonttenCanalProperties",
+      "defaultValue": "1"
+    },
+    {
       "name": "lontten.canal.ip",
       "type": "java.lang.String",
       "description": "Canal server IP address.",
