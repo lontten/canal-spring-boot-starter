@@ -144,7 +144,9 @@ public class CanalClientService extends CanalClientContext {
                             handleEntry(entry);
                         }
                     }
-                    connector.ack(batchId); // 提交确认
+                    if (batchId != -1) {
+                        connector.ack(batchId); // 提交确认
+                    }
                 }
             } catch (Throwable e) {
                 logger.error("process error!", e);
